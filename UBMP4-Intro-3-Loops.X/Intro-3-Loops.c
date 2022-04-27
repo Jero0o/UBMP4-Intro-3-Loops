@@ -30,7 +30,7 @@ int main(void)
 	
     while(1)
 	{
-        // Decrease brightness
+      // Decrease brightness
         if(SW2 == 0)
         {
             TonLED4 -= 1;
@@ -43,17 +43,25 @@ int main(void)
         }
         
         // PWM LED4 brightness
-        PWMperiod = 255;
-        while(PWMperiod != 0)
+        PWMperiod = 128;
+        for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
         {
             if(TonLED4 == PWMperiod)
             {
                 LED4 = 1;
             }
-            PWMperiod --;
             __delay_us(20);
         }
         LED4 = 0;
+       
+        if(PWMperiod == 128)
+        {
+            LED5 = 1;
+        }
+        else
+        {
+            LED5 = 0;
+        }
         
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
@@ -75,14 +83,23 @@ int main(void)
  * 2. There is a second 'while(PWMperiod != 0)' loop inside the first while
  *    loop. What condition is being evaluated inside this while statement's
  *    brackets? How many times will the contents of this inner loop run?
+ *
  * The condition that is being evaluated is that the code will run if PWMperiod is not equal to 0
+ * This code will run until the value of PWMperiod is zero.
+ *
  * 3. What condition is being evaluated by the if statement inside the loop?
  *    What happens when the if condition is true?
+ *
+ * The condition that is being evaluated by the if statement inside the loop is if TonLED4 is equal to PWMperiod.
+ * If the 'if' condition is true, then LED4 will turn on. And the 'if' condition will be false when the value of PWMperiod decreases to zero.
  * 
  * 4. Pressing the up or down buttons (SW3 and SW2) will increase or decrease
  *    the brightness of LED D4 using PWM (Pulse-Width Modulation). How many 
  *    different brightnesses can the LED have? What would the step size of one
  *    brightness level change be if it was expressed as a percentage?
+ *
+ * There are a total of 255 different brightness the LED have.
+ * The step size of one brightness level change is 0.39%(0.39215686274)
  * 
  * 5. The while loop needs three statements to perform its function. First, the
  *    assignment statement 'PWMperiod = 255;' sets the PWMperiod variable. Next,
@@ -113,6 +130,9 @@ int main(void)
         
  *    What is an advantage of using a for loop instead of a while loop?
  * 
+ * A 'for' loop incorporates the three statements which are; assignment variable, conditional check, variable modification) needed to perform into a single statement.
+ * This alternative makes the coding less troublesome and more efficient.
+ *
  * 6. The 'for' loop, above, redefines the PWMperiod variable in the 
  *    initialization statement: 'for(unsigned char PWMperiod = 255; ...'
  * 
@@ -140,7 +160,7 @@ int main(void)
  *    Compile and run the code. When the program runs, the PWMperiod variable
  *    inside the for loop will count down from 255 to 0, and should be 0 when
  *    the loop finishes. Is LED D5 lit? What must the value of PWMperiod be?
- * 
+ * Yes LED D5 is lit. The value of PWMperiod should be 128.
  *    Can you remove the global PWMperiod variable definition from the top of 
  *    the program now that PWMperiod is being defined in the for loop?
  * 
