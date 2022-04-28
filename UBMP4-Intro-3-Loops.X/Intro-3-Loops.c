@@ -33,13 +33,18 @@ int main(void)
       // Decrease brightness
         if(SW2 == 0)
         {
-            TonLED4 -= 1;
+            if(TonLED4 == 0)
+            {
+                TonLED4 -= 1;
+            }
+
         }
 
         // Increase brightness
         if(SW3 == 0)
         {
             TonLED4 += 1;
+            
         }
         
         // PWM LED4 brightness
@@ -53,7 +58,7 @@ int main(void)
             __delay_us(20);
         }
         LED4 = 0;
-       
+
         if(PWMperiod == 128)
         {
             LED5 = 1;
@@ -62,7 +67,26 @@ int main(void)
         {
             LED5 = 0;
         }
+
+
+/*        // Change pitch
+        if(SW4 == 0)
+        {
+            period -= 1;
+        }
         
+        if(SW5 == 0)
+        {
+            period += 1;
+        }
+        
+        // Make a tone
+        for(unsigned char cycles = 50; cycles != 0; cycles--)
+        {
+            BEEPER = !BEEPER;
+            for(unsigned int p = period; p != 0; p--);
+        }
+*/        
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
         {
@@ -160,10 +184,14 @@ int main(void)
  *    Compile and run the code. When the program runs, the PWMperiod variable
  *    inside the for loop will count down from 255 to 0, and should be 0 when
  *    the loop finishes. Is LED D5 lit? What must the value of PWMperiod be?
+ *
  * Yes LED D5 is lit. The value of PWMperiod should be 128.
+ *
  *    Can you remove the global PWMperiod variable definition from the top of 
  *    the program now that PWMperiod is being defined in the for loop?
- * 
+ *
+ * No you can't remove the global PWMperiod variable definition because the the PWMperiod outside the loop is still using the definition but has a different value to light a different LED
+ *
  * 7. Add this code below the PWM loop to generate a tone:
                 
         // Change pitch
@@ -193,7 +221,9 @@ int main(void)
  *    to zero, increasing the time delay until the next cycle.
  * 
  *    What variable type is period? How large a number can this variable hold?
- * 
+ *
+ * Period is a interger type of variable. This variable can hold a large number of 65536
+ *
  * 8. Why is period copied to the local variable p inside the inner for loop?
  *    What would happen if the actual period variable was decremented instead?
  * 
