@@ -19,7 +19,7 @@
 // TODO Set linker code offset to '800' under "Additional options" pull-down.
 
 // Program variable definitions
-unsigned char TonLED4 = 127;    // LED brightness PWM value
+unsigned char TonLED4 = 0;    // LED brightness PWM value
 unsigned char PWMperiod;        // PWM period counter for PWM loops
 unsigned int period = 460;      // Sound period value for later activities
 unsigned char TonLED5 = 127;
@@ -66,7 +66,15 @@ int main(void)
                 TonLED5 += 1;
             }
         }
-        
+
+        for(unsigned char TonLED4 = 0; TonLED4 != PWMperiod; TonLED4 --)
+        {
+            if(TonLED4 == 0)
+            {
+                LED4 ++;
+            }
+        }
+
         // PWM LED4 brightness
         for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
         {
@@ -82,6 +90,7 @@ int main(void)
          }
         LED4 = 0;
         LED5 = 0;
+
 /*        for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
         {
             if(TonLED5 == PWMperiod)
@@ -118,9 +127,9 @@ int main(void)
         for(unsigned char cycles = 50; cycles != 0; cycles--)
         {
             BEEPER = !BEEPER;
-            for(unsigned int p = period; p != 0; p--);
+            for(period; period != 0; period--);
         }
-*/        
+*/       
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
         {
@@ -134,6 +143,7 @@ int main(void)
  * 1. The main part of the program contains the 'while(1)' loop. What condition
  *    is being evaluated within its brackets? (Hint: Think about the Boolean
  *    variables from Activity 2-Variables.) How many times will this loop run?
+ *
  * This loop will run infinite times.
  * The condition that is being evaluated is whether the brightness of the LED is being increased or decreased.
  * This means the condition of 'while(1)' is always true it will run infinite times. If its zero, it means the condtion is false and it will never execute.
@@ -243,7 +253,7 @@ int main(void)
         for(unsigned char cycles = 50; cycles != 0; cycles--)
         {
             BEEPER = !BEEPER;
-            for(unsigned int p = period; p != 0; p--);
+            for(unsigned int p = period; != 0; p--);
         }
 
  *    The section to make a tone contains nested for loops. The outer loop 
@@ -260,7 +270,10 @@ int main(void)
  *
  * 8. Why is period copied to the local variable p inside the inner for loop?
  *    What would happen if the actual period variable was decremented instead?
- * 
+ *
+ * Period is copied to the local variable p because it would affect the pitch sound.
+ * If the actual period variable is decremented the sound of the beeper is removed.
+ *
  * Programming Activities
  * 
  * 1. Pressing and holding SW2 or SW3 causes the brightness of LED D4 to cycle
