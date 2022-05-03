@@ -19,10 +19,13 @@
 // TODO Set linker code offset to '800' under "Additional options" pull-down.
 
 // Program variable definitions
+#define Pressed 0
+#define notPressed 1
+unsigned char SW3Count = 0;
 unsigned char TonLED4 = 0;    // LED brightness PWM value
 unsigned char PWMperiod;        // PWM period counter for PWM loops
 unsigned int period = 460;      // Sound period value for later activities
-unsigned char TonLED5 = 127;
+//unsigned char TonLED5 = 0;
 
 int main(void)
 {
@@ -31,88 +34,28 @@ int main(void)
 	
     while(1)
     {
-      // Decrease brightness
-        if(SW2 == 0)
-        {
-            if(TonLED4 > 0)
-            {
-                TonLED4 -= 1;
-            }    
+        if(SW3 == 0) { 
+                for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
+                {
+                    LED4 = 0;
+                    // PWM LED4 brightness
+                    for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
+                    {
+                        if(TonLED4 == PWMperiod)
+                        {
+                            LED4 = 1;
+                        }
+                        __delay_us(50);
+                    }
+                }
         }
-
-        // Increase brightness
-        if(SW3 == 0)
-        {
-            if(TonLED4 < 255)
-            {
-                TonLED4 += 1;
-            }
-        }
-
-        // Decrease brightness
-        if(SW5 == 0)
-        {
-            if(TonLED5 > 0)
-            {
-                TonLED5 -= 1;
-            }    
-        }
-
-        // Increase brightness
-        if(SW4 == 0)
-        {
-            if(TonLED5 < 255)
-            {
-                TonLED5 += 1;
-            }
-        }
-
-        for(unsigned char TonLED4 = 0; TonLED4 != PWMperiod; TonLED4 --)
-        {
-            if(TonLED4 == 0)
-            {
-                LED4 ++;
-            }
-        }
-
-        // PWM LED4 brightness
-        for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
-        {
-            if(TonLED4 == PWMperiod)
-            {
-                LED4 = 1;
-            }
-            if(TonLED5 == PWMperiod)
-            {
-                LED5 = 1;
-            }
-            __delay_us(20);
-         }
-        LED4 = 0;
-        LED5 = 0;
-
-/*        for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
-        {
-            if(TonLED5 == PWMperiod)
-            {
-                LED5 = 1;
-            }
-            __delay_us(20);
-        }
-        LED5 = 0;
-
-        if(PWMperiod == 128)
-        {
-            LED4 = 1;
-        }
-        else
-        {
+        if(SW4 == 0) {
             LED4 = 0;
         }
 
 
-
-/*        // Change pitch
+/*        
+        // Change pitch
         if(SW4 == 0)
         {
             period -= 1;
