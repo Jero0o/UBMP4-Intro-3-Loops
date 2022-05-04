@@ -34,7 +34,7 @@ int main(void)
 	
     while(1)
     {
-        if(SW3 == 0) { 
+            if(SW3 == 0) { 
                 for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
                 {
                     LED4 = 0;
@@ -48,11 +48,48 @@ int main(void)
                         __delay_us(50);
                     }
                 }
+                for(unsigned char TonLED4 = 255; TonLED4 != 0; TonLED4 --)
+            {
+                LED4 = 1;
+                for(unsigned char PWMperiod = 0; PWMperiod != 255; PWMperiod ++)
+                {
+                    if(TonLED4 == PWMperiod)
+                    {
+                        LED4 = 0;
+                    }
+                    __delay_us(50);
+                }
+            }
         }
-        if(SW4 == 0) {
-            LED4 = 0;
+        
+/*        if(SW3 == 0) { 
+                for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
+                {
+                    LED4 = 0;
+                    // PWM LED4 brightness
+                    for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
+                    {
+                        if(TonLED4 == PWMperiod)
+                        {
+                            LED4 = 1;
+                        }
+                        __delay_us(50);
+                    }
+                }
+                for(unsigned char TonLED4 = 255; TonLED4 != 0; TonLED4 --)
+            {
+                LED4 = 1;
+                for(unsigned char PWMperiod = 0; PWMperiod != 255; PWMperiod ++)
+                {
+                    if(TonLED4 == PWMperiod)
+                    {
+                        LED4 = 0;
+                    }
+                    __delay_us(50);
+                }
+            }
         }
-
+        
 
 /*        
         // Change pitch
@@ -325,7 +362,40 @@ int main(void)
  *    turn on at full power, create a program that uses a for loop and your PWM
  *    code to make a 'soft-start' program that slowly increases the PWM on-time
  *    when you press a button. Can you make it turn off in a similar way?
- *  
+ *    while(1)
+    {
+        if(SW3 == 0) { 
+                for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
+                {
+                    LED4 = 0;
+                    // PWM LED4 brightness
+                    for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
+                    {
+                        if(TonLED4 == PWMperiod)
+                        {
+                            LED4 = 1;
+                        }
+                        __delay_us(50);
+                    }
+                }
+        }
+        if(SW2 == 0) {
+            for(unsigned char TonLED4 = 255; TonLED4 != 0; TonLED4 --)
+            {
+                LED4 = 1;
+                for(unsigned char PWMperiod = 0; PWMperiod != 255; PWMperiod ++)
+                {
+                    if(TonLED4 == PWMperiod)
+                    {
+                        LED4 = 0;
+                    }
+                    __delay_us(50);
+                }
+            }
+        }
+        if(SW4 == 0) {
+            LED4 = 0;
+        }
  * 4. Make a program that creates an automated, electronic 'pulse', repeatedly
  *    brightening and dimming one or more LEDs.
  * 
