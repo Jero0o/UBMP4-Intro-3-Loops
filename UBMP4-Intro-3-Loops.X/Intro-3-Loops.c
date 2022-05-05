@@ -21,10 +21,11 @@
 // Program variable definitions
 #define Pressed 0
 #define notPressed 1
+bool SW2Pressed = false;
 unsigned char SW3Count = 0;
 unsigned char TonLED4 = 0;    // LED brightness PWM value
 unsigned char PWMperiod;        // PWM period counter for PWM loops
-unsigned int period = 460;      // Sound period value for later activities
+unsigned int period = 260;      // Sound period value for later activities
 //unsigned char TonLED5 = 0;
 
 int main(void)
@@ -34,8 +35,8 @@ int main(void)
 	
     while(1)
     {
-            if(SW3 == 0) { 
-                for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
+
+/*                for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
                 {
                     LED4 = 0;
                     // PWM LED4 brightness
@@ -60,9 +61,9 @@ int main(void)
                     __delay_us(50);
                 }
             }
-        }
+
         
-/*        if(SW3 == 0) { 
+        if(SW3 == 0) { 
                 for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
                 {
                     LED4 = 0;
@@ -91,7 +92,8 @@ int main(void)
         }
         
 
-/*        
+*/
+    if(SW2 == Pressed && SW2Pressed == false) {
         // Change pitch
         if(SW4 == 0)
         {
@@ -107,9 +109,10 @@ int main(void)
         for(unsigned char cycles = 50; cycles != 0; cycles--)
         {
             BEEPER = !BEEPER;
-            for(period; period != 0; period--);
+            for(unsigned int p = period; != 0; p--);
         }
-*/       
+    }
+        
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
         {
@@ -398,7 +401,34 @@ int main(void)
         }
  * 4. Make a program that creates an automated, electronic 'pulse', repeatedly
  *    brightening and dimming one or more LEDs.
- * 
+ *  while(1)
+    {
+
+                for(unsigned char TonLED4 = 0; TonLED4 != 255; TonLED4 ++)
+                {
+                    LED4 = 0;
+                    // PWM LED4 brightness
+                    for(unsigned char PWMperiod = 255; PWMperiod != 0; PWMperiod --)
+                    {
+                        if(TonLED4 == PWMperiod)
+                        {
+                            LED4 = 1;
+                        }
+                        __delay_us(50);
+                    }
+                }
+                for(unsigned char TonLED4 = 255; TonLED4 != 0; TonLED4 --)
+            {
+                LED4 = 1;
+                for(unsigned char PWMperiod = 0; PWMperiod != 255; PWMperiod ++)
+                {
+                    if(TonLED4 == PWMperiod)
+                    {
+                        LED4 = 0;
+                    }
+                    __delay_us(50);
+                }
+            }
  * 5. Make a 'chirp' or 'pew-pew' sound effect by sweeping through a range of
  *    frequencies when a button is pressed.
  */
