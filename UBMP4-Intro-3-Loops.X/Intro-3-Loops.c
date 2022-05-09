@@ -103,7 +103,7 @@ int main(void)
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            for(unsigned int cycles = 90; cycles != 0; cycles--)
+            for(unsigned int cycles = 100; cycles != 0; cycles--)
             {
                 period = period - 15;
                 BEEPER = !BEEPER;
@@ -116,7 +116,7 @@ int main(void)
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            for(unsigned int cycles = 90; cycles != 0; cycles--)
+            for(unsigned int cycles = 100; cycles != 0; cycles--)
             {
                 period = period - 15;
                 BEEPER = !BEEPER;
