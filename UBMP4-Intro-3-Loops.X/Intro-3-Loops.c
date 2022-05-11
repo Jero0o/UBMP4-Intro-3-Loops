@@ -25,7 +25,7 @@ bool SW2Pressed = false;
 unsigned char SW3Count = 0;
 unsigned char TonLED4 = 0;    // LED brightness PWM value
 unsigned char PWMperiod;        // PWM period counter for PWM loops
-unsigned int period = 1200;      // Sound period value for later activities
+unsigned int period = 900;      // Sound period value for later activities
 //unsigned char TonLED5 = 0;
 
 int main(void)
@@ -99,31 +99,31 @@ int main(void)
         if(SW2 == 0) {
             for(unsigned int cycles = 20; cycles != 0; cycles--)
             {
-                period = period + 30;
+                period = period + 50;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            for(unsigned int cycles = 100; cycles != 0; cycles--)
+            for(unsigned int cycles = 80; cycles != 0; cycles--)
             {
-                period = period - 15;
+                period = period - 10;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            period = 1200;
+            period = 900;
             for(unsigned int cycles = 20; cycles != 0; cycles--)
             {
-                period = period + 30;
+                period = period + 50;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            for(unsigned int cycles = 100; cycles != 0; cycles--)
+            for(unsigned int cycles = 80; cycles != 0; cycles--)
             {
-                period = period - 15;
+                period = period - 10;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
         }
-        period = 1200;
+        period = 900;
         
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
