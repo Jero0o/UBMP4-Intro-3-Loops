@@ -25,7 +25,7 @@ bool SW2Pressed = false;
 unsigned char SW3Count = 0;
 unsigned char TonLED4 = 0;    // LED brightness PWM value
 unsigned char PWMperiod;        // PWM period counter for PWM loops
-unsigned int period = 900;      // Sound period value for later activities
+unsigned int period = 1200;      // Sound period value for later activities
 //unsigned char TonLED5 = 0;
 
 int main(void)
@@ -97,33 +97,33 @@ int main(void)
         
         // Make a tone
         if(SW2 == 0) {
-            for(unsigned int cycles = 20; cycles != 0; cycles--)
+            for(unsigned int cycles = 50; cycles != 0; cycles--)
             {
-                period = period + 50;
+                period = period + 20;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            for(unsigned int cycles = 80; cycles != 0; cycles--)
+            for(unsigned int cycles = 100; cycles != 0; cycles--)
             {
                 period = period - 10;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            period = 900;
-            for(unsigned int cycles = 20; cycles != 0; cycles--)
+            period = 1200;
+            for(unsigned int cycles = 50; cycles != 0; cycles--)
             {
-                period = period + 50;
+                period = period + 20;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
-            for(unsigned int cycles = 80; cycles != 0; cycles--)
+            for(unsigned int cycles = 100; cycles != 0; cycles--)
             {
                 period = period - 10;
                 BEEPER = !BEEPER;
                 for(unsigned int p = period; p != 0; p--);
             }
         }
-        period = 900;
+        period = 1200;
         
         // Activate bootloader if SW1 is pressed.
         if(SW1 == 0)
@@ -132,6 +132,7 @@ int main(void)
         }
     }
 }
+
 
 /* Program Analysis
  * 
@@ -443,4 +444,33 @@ int main(void)
             }
  * 5. Make a 'chirp' or 'pew-pew' sound effect by sweeping through a range of
  *    frequencies when a button is pressed.
+        if(SW2 == 0) {
+            for(unsigned int cycles = 50; cycles != 0; cycles--)
+            {
+                period = period + 20;
+                BEEPER = !BEEPER;
+                for(unsigned int p = period; p != 0; p--);
+            }
+            for(unsigned int cycles = 100; cycles != 0; cycles--)
+            {
+                period = period - 10;
+                BEEPER = !BEEPER;
+                for(unsigned int p = period; p != 0; p--);
+            }
+            period = 1200;
+            for(unsigned int cycles = 50; cycles != 0; cycles--)
+            {
+                period = period + 20;
+                BEEPER = !BEEPER;
+                for(unsigned int p = period; p != 0; p--);
+            }
+            for(unsigned int cycles = 100; cycles != 0; cycles--)
+            {
+                period = period - 10;
+                BEEPER = !BEEPER;
+                for(unsigned int p = period; p != 0; p--);
+            }
+        }
+        period = 1200;
+
  */
